@@ -5,7 +5,7 @@
     +e.H2.header {{header}}
     +e.P.stats Всього слів: {{wordsToDisplay.length}}
     template(v-for="word in wordsToDisplay")
-       Word(:word="word")
+       Word(:word="word" :click="click")
     +e.clearBoth
 </template>
 
@@ -38,6 +38,10 @@ export default {
     },
     wordsToDisplay() {
       return this.words.filter(word => word.use === this.mode);
+    },
+  },
+  methods: {
+    click() {
     },
   },
   components: {

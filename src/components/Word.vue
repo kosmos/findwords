@@ -1,7 +1,7 @@
 <template lang="pug">
   include ../vuek/mixins.pug
 
-  +b.word(v-on:click="click", v-on:dbclick="dbClick" :class="{ word_bad: word.use === 2 }") {{word.word}}
+  +b.word(v-on:click="click(word)", :class="{ word_bad: word.use === 2 }") {{word.word}}
 </template>
 
 <script>
@@ -12,14 +12,7 @@ export default {
       type: Object,
     },
     mode: Number,
-  },
-  methods: {
-    click() {
-      if (this.word.use === 0) this.word.use = 2;
-    },
-    dbClick() {
-      if (this.word.use === 0) this.word.use = 1;
-    },
+    click: Function,
   },
 };
 </script>
