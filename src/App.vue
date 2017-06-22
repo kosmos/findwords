@@ -5,9 +5,7 @@
     +e.sidebar
       Sidebar
     +e.content(:class="{app__content_withpadding: $store.state.displayApproved}")
-      ScreenOneWord(:words="getWords" v-if="getMode === '1'")
-      Screen20Words(v-if="getMode === '2'")
-      ScreenAllWords(v-if="getMode === '3'")
+      WordsView(:words="getWords", :numberOfWords="$store.state.displayMode")
     +e.approved-words(v-if="$store.state.displayApproved")
       Wordlist(:words="getWords", :mode="1")
     //- Preloader
@@ -18,9 +16,7 @@ import { mapGetters } from 'vuex';
 import Sidebar from './components/Sidebar';
 import Wordlist from './components/Wordlist';
 import Preloader from './components/Preloader';
-import ScreenOneWord from './components/ScreenOneWord';
-import Screen20Words from './components/Screen20Words';
-import ScreenAllWords from './components/ScreenAllWords';
+import WordsView from './components/WordsView';
 
 export default {
   name: 'app',
@@ -34,9 +30,7 @@ export default {
     Sidebar,
     Wordlist,
     Preloader,
-    ScreenOneWord,
-    Screen20Words,
-    ScreenAllWords,
+    WordsView,
   },
 };
 </script>
@@ -51,6 +45,7 @@ html, body {
 
 .app {
   $sidebar-width: 250px;
+  $approved-words-width: $sidebar-width;
 
   position: relative;
   min-height: 100%;
@@ -71,12 +66,10 @@ html, body {
   }
 
   &__content {
-    display: flex;
-    margin-top: 48px;
     padding-left: $sidebar-width;
 
     &_withpadding {
-      padding-right: 200px;
+      padding-right: $approved-words-width;
     }
   }
 
@@ -95,8 +88,9 @@ html, body {
     position: fixed;
     top: 0;
     right: 0;
-    width: 200px;
+    width: $approved-words-width;
     height: 100vh;
+    background-color: #eee;
   }
 }
 </style>

@@ -7,11 +7,11 @@
       +e.INPUT.mode(type="radio" name="displayMode" value="1" v-model="displayMode")
       | Випадкове слово
       br
-      +e.INPUT.mode(type="radio" name="displayMode" value="2" v-model="displayMode")
+      +e.INPUT.mode(type="radio" name="displayMode" value="20" v-model="displayMode")
       | 20 випадкових слів
       br
-      +e.INPUT.mode(type="radio" name="displayMode" value="3" v-model="displayMode")
-      | Всі слова
+      +e.INPUT.mode(type="radio" name="displayMode" value="200" v-model="displayMode")
+      | 200 випадкових слів
       br
       br
       +e.INPUT.wiki(type="checkbox", name="approve", v-model="isApprove")
@@ -71,7 +71,7 @@ export default {
         return;
       }
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = function onFileLoad(e) {
         const words = JSON.parse(e.target.result);
         /*eslint-disable*/
         words.forEach(function(item) {
@@ -83,8 +83,6 @@ export default {
       reader.readAsText(this.file);
     },
     saveFile() {
-      console.log('save');
-      console.log(this.$store.state.words);
       const blob = new Blob([JSON.stringify(this.$store.state.words)], { type: 'text/plain;charset=utf-8' });
       FileSaver.saveAs(blob, 'data.json');
     },

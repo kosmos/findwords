@@ -1,7 +1,7 @@
 <template lang="pug">
   include ../vuek/mixins.pug
 
-  +b.word(v-on:click="click(word)", :class="{ word_bad: word.use === 2 }") {{word.word}}
+  +b.word(v-on:click="clicked", :class="{ word_bad: word.use === 2, word_good: word.use === 1}") {{word.word}}
 </template>
 
 <script>
@@ -11,8 +11,15 @@ export default {
     word: {
       type: Object,
     },
-    mode: Number,
-    click: Function,
+  },
+  methods: {
+    clicked(event) {
+      if (event.shiftKey) {
+        this.$emit('word-change', this.word.id, 1);
+      } else {
+        this.$emit('word-change', this.word.id, 2);
+      }
+    },
   },
 };
 </script>
@@ -26,9 +33,14 @@ export default {
     border-radius: 3px;
     float:left;
     cursor: pointer;
+    user-select: none;
 
     &_bad {
       background-color: #ddd;
+    }
+
+    &_good {
+      background-color: rgb(55,185,233);
     }
 }
 </style>
